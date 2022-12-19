@@ -100,6 +100,7 @@ class FirstScreen extends StatelessWidget {
         ),
       ),
       body: ListView.builder(
+        physics: const BouncingScrollPhysics(),
         itemCount: 10,
         itemBuilder: (context, index) {
           return Padding(
@@ -176,7 +177,6 @@ class FirstScreen extends StatelessWidget {
                 //       child: Text('Bless'),
                 //     ),
 
-                    
                 //   ],
                 // ),
                 // Divider()
