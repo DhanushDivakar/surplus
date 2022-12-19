@@ -15,20 +15,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    // final List<Widget> _widgetOptions = [
-    //   HomeScreen(),
-    //   AddScreen(),
-    //   ChatScreen(),
-    //   ProfileScreen(),
-    // ];
-    // int _selectedIndex = 0;
-
-    // void onItemtapped(int index) {
-    //   setState(() {
-    //     _selectedIndex = index;
-    //   });
-    // }
-
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -43,34 +29,38 @@ class _HomeScreenState extends State<HomeScreen> {
         body: BlocBuilder<BottomBarCubit, BottomBarState>(
           builder: (context, state) {
             if (state.navbarItem == NavbarItem.home) {
-              return FirstScreen();
+              return const FirstScreen();
             }
             if (state.navbarItem == NavbarItem.add) {
-              return AddScreen();
+              return const AddScreen();
             }
             if (state.navbarItem == NavbarItem.chat) {
-              return ChatScreen();
+              return const ChatScreen();
             }
             if (state.navbarItem == NavbarItem.profile) {
-              return ProfileScreen();
+              return const ProfileScreen();
             }
             return Container();
           },
         ),
-
         bottomNavigationBar: BlocBuilder<BottomBarCubit, BottomBarState>(
           builder: (context, state) {
             return BottomNavigationBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+             enableFeedback: false,
               currentIndex: state.index,
               showUnselectedLabels: false,
+              showSelectedLabels: false,
+              type: BottomNavigationBarType.fixed,
               // ignore: prefer_const_literals_to_create_immutables
               items: [
                 const BottomNavigationBarItem(
-                    icon: Icon(Icons.home), label: 'Home'),
+                    icon: Icon(Icons.home_rounded), label: 'Home'),
                 const BottomNavigationBarItem(
-                    icon: Icon(Icons.add), label: 'Add'),
+                    icon: Icon(Icons.add_box), label: 'Add'),
                 const BottomNavigationBarItem(
-                    icon: Icon(Icons.chat), label: 'Chat'),
+                    icon: Icon(Icons.chat_bubble_rounded), label: 'Chat'),
                 const BottomNavigationBarItem(
                     icon: Icon(Icons.person), label: 'Profile'),
               ],
@@ -95,30 +85,6 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           },
         ),
-        // bottomNavigationBar: BottomNavigationBar(
-        //   items: [
-        //     BottomNavigationBarItem(
-        //       icon: Icon(Icons.home_max_rounded),
-        //       label: ''
-
-        //     ),
-        //     BottomNavigationBarItem(
-        //       icon: Icon(Icons.plus_one_rounded),
-        //       label: ''
-        //     ),
-        //     BottomNavigationBarItem(
-        //       icon: Icon(Icons.chat_bubble_outline_rounded),
-        //       label: ''
-        //     ),
-        //     BottomNavigationBarItem(
-        //       icon: Icon(Icons.person_off_outlined),
-        //       label: ''
-        //     ),
-        //   ],
-        //   currentIndex: _selectedIndex,
-        //   selectedItemColor: Theme.of(context).colorScheme.primary,
-        //   onTap: onItemtapped,
-        // ),
       ),
     );
   }
