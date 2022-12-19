@@ -1,12 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:surplus/screens/add_screen.dart';
+import 'package:surplus/screens/chat_screen.dart';
+import 'package:surplus/screens/profile_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    // final List<Widget> _widgetOptions = [
+    //   HomeScreen(),
+    //   AddScreen(),
+    //   ChatScreen(),
+    //   ProfileScreen(),
+    // ];
+    // int _selectedIndex = 0;
+
+    // void onItemtapped(int index) {
+    //   setState(() {
+    //     _selectedIndex = index;
+    //   });
+    // }
 
     return SafeArea(
       child: Scaffold(
@@ -91,6 +112,30 @@ class HomeScreen extends StatelessWidget {
             );
           },
         ),
+        // bottomNavigationBar: BottomNavigationBar(
+        //   items: [
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.home_max_rounded),
+        //       label: ''
+              
+        //     ),
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.plus_one_rounded),
+        //       label: ''
+        //     ),
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.chat_bubble_outline_rounded),
+        //       label: ''
+        //     ),
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.person_off_outlined),
+        //       label: ''
+        //     ),
+        //   ],
+        //   currentIndex: _selectedIndex,
+        //   selectedItemColor: Theme.of(context).colorScheme.primary,
+        //   onTap: onItemtapped,
+        // ),
       ),
     );
   }
