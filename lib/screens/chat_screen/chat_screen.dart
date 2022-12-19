@@ -5,6 +5,13 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        
+        automaticallyImplyLeading: false,
+        title: Text('Title'),
+      ),
+    );
   }
 }

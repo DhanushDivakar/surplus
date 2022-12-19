@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:surplus/cubit/bottom_bar_cubit.dart';
-import 'package:surplus/screens/add_screen.dart';
+import 'package:surplus/screens/add_screen/add_screen.dart';
+
 import 'package:surplus/screens/chat_screen.dart';
+import 'package:surplus/screens/home_screen/inner_screen.dart';
 import 'package:surplus/screens/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -134,14 +136,26 @@ class FirstScreen extends StatelessWidget {
                 SizedBox(
                   height: height * 0.005,
                 ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: SizedBox(
-                    height: height * .25,
-                    width: double.infinity,
-                    child: Image.network(
-                      'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-                      fit: BoxFit.cover,
+                GestureDetector(
+                  onTap: () {
+                      print('tapped');
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (ctx) {
+                            return InnerScreen();
+                          },
+                        ),
+                      );
+                    },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: SizedBox(
+                      height: height * .25,
+                      width: double.infinity,
+                      child: Image.network(
+                        'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),

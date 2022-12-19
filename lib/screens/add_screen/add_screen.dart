@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:surplus/screens/added_screen.dart';
+import 'package:surplus/screens/add_screen/added_screen.dart';
 
 class AddScreen extends StatelessWidget {
   const AddScreen({super.key});

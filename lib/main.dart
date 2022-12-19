@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:surplus/cubit/bottom_bar_cubit.dart';
-import 'package:surplus/screens/auth_screen/signin.dart';
-import 'package:surplus/screens/home_screen.dart';
+import 'package:surplus/screens/home_screen/home_screen.dart';
+
 
 void main() {
   runApp(const MyApp());
