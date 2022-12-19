@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:surplus/cubit/bottom_bar_cubit.dart';
 import 'package:surplus/screens/add_screen/add_screen.dart';
-
-import 'package:surplus/screens/chat_screen.dart';
+import 'package:surplus/screens/chat_screen/chat_screen_all.dart';
 import 'package:surplus/screens/home_screen/inner_screen.dart';
 import 'package:surplus/screens/profile_screen.dart';
 

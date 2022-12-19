@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
-class InnerChartScreen extends StatelessWidget {
-  const InnerChartScreen({super.key});
+class InnerChatScreen extends StatelessWidget {
+  const InnerChatScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          leading: IconButton(
+            icon: Icon(
+              Icons.chevron_left_rounded,
+              color: Theme.of(context).colorScheme.primary,
+              size: 40,
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          title: const Text(
+            'puneet',
+            style: TextStyle(color: Colors.black),
+          ),
+          elevation: 1,
+          backgroundColor: Colors.white,
+        ),
+      ),
+    );
   }
 }
