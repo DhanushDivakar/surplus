@@ -164,6 +164,21 @@ class FirstScreen extends StatelessWidget {
                     ),
                   ],
                 ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     OutlinedButton(
+                //       onPressed: () {},
+                //       child: Text('Take'),
+                //     ),
+                //      OutlinedButton(
+                //       onPressed: () {},
+                //       child: Text('Bless'),
+                //     ),
+
+                    
+                //   ],
+                // ),
                 // Divider()
               ],
             ),
