@@ -38,8 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
         bottomNavigationBar: BlocBuilder<BottomBarCubit, BottomBarState>(
           builder: (context, state) {
             return BottomNavigationBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
+              backgroundColor: Colors.white,
+              elevation: 01,
               enableFeedback: false,
               currentIndex: state.index,
               showUnselectedLabels: false,

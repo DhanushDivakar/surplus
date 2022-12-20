@@ -50,15 +50,13 @@ class ProfileScreen extends StatelessWidget {
               child: Container(
                 height: height * 0.060,
                 width: double.infinity,
-                
                 decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.circular(20)
-                ),
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: BorderRadius.circular(20)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                   const  Icon(
+                    const Icon(
                       Icons.shopping_basket_rounded,
                       color: Colors.white,
                     ),
@@ -71,9 +69,25 @@ class ProfileScreen extends StatelessWidget {
                           color: Colors.white,
                           fontSize: height * 0.020,
                           fontWeight: FontWeight.w500),
-                    )
+                    ),
+                    SizedBox(
+                      height: height * 0.010,
+                    ),
                   ],
                 ),
+              ),
+            ),
+            Expanded(
+             
+              child: GridView.builder(
+               // physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                ),
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return Card();
+                },
               ),
             ),
           ],
