@@ -25,22 +25,27 @@ class ChatScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.all(5.0),
-            child: ListTile(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: ((context) => InnerChatScreen() )));
-                
-              },
-              leading: CircleAvatar(
-                radius: width * 0.060,
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                foregroundImage: const NetworkImage(
-                    'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
-              ),
-              title: const Text(
-                'puneet',
-                style: TextStyle(fontWeight: FontWeight.w600),
-              ),
-              subtitle: Text('Thank you!! That was very helpful'),
+            child: Column(
+              children: [
+                ListTile(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: ((context) => InnerChatScreen() )));
+                    
+                  },
+                  leading: CircleAvatar(
+                    radius: width * 0.060,
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    foregroundImage: const NetworkImage(
+                        'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
+                  ),
+                  title: const Text(
+                    'puneet',
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                  subtitle: Text('Thank you!! That was very helpful'),
+                ),
+                Divider()
+              ],
             ),
           );
         },

@@ -20,79 +20,76 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              height: height * 0.020,
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            height: height * 0.020,
+          ),
+          Center(
+            child: CircleAvatar(
+              radius: width * 0.20,
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              foregroundImage: const NetworkImage(
+                  'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
             ),
-            Center(
-              child: CircleAvatar(
-                radius: width * 0.20,
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                foregroundImage: const NetworkImage(
-                    'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
+          ),
+          SizedBox(
+            height: height * 0.010,
+          ),
+          Text(
+            'Puneet Chauhan',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: height * 0.030,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: Container(
+              height: height * 0.060,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.circular(20)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.shopping_basket_rounded,
+                    color: Colors.white,
+                  ),
+                  SizedBox(
+                    width: width * 0.040,
+                  ),
+                  Text(
+                    'Blessed 12 people so far',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: height * 0.020,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  SizedBox(
+                    height: height * 0.010,
+                  ),
+                ],
               ),
             ),
-            SizedBox(
-              height: height * 0.010,
-            ),
-            Text(
-              'Puneet Chauhan',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: height * 0.030,
-                fontWeight: FontWeight.w500,
+          ),
+          Expanded(
+            child: GridView.builder(
+              //physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
               ),
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return const Card();
+              },
             ),
-            Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: Container(
-                height: height * 0.060,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(20)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.shopping_basket_rounded,
-                      color: Colors.white,
-                    ),
-                    SizedBox(
-                      width: width * 0.040,
-                    ),
-                    Text(
-                      'Blessed 12 people so far',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: height * 0.020,
-                          fontWeight: FontWeight.w500),
-                    ),
-                    SizedBox(
-                      height: height * 0.010,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
-              child: GridView.builder(
-                
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return const Card();
-                },
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
