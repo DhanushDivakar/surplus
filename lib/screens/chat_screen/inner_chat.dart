@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:surplus/screens/chat_screen/new_chat_screen.dart';
 
 class InnerChatScreen extends StatelessWidget {
   const InnerChatScreen({super.key});
@@ -10,26 +11,35 @@ class InnerChatScreen extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          leading: IconButton(
-            icon: Icon(
-              Icons.chevron_left_rounded,
-              color: Theme.of(context).colorScheme.primary,
-              size: 40,
+          appBar: AppBar(
+            centerTitle: true,
+            leading: IconButton(
+              icon: Icon(
+                Icons.chevron_left_rounded,
+                color: Theme.of(context).colorScheme.primary,
+                size: 40,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
             ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
+            title: const Text(
+              'puneet',
+              style: TextStyle(color: Colors.black),
+            ),
+            elevation: 1,
+            backgroundColor: Colors.white,
           ),
-          title: const Text(
-            'puneet',
-            style: TextStyle(color: Colors.black),
-          ),
-          elevation: 1,
-          backgroundColor: Colors.white,
-        ),
-      ),
+          body: Container(
+            child: Column(
+              children: [
+                Expanded(
+                  child: Container(),
+                ),
+                NewChatScreen(),
+              ],
+            ),
+          )),
     );
   }
 }
