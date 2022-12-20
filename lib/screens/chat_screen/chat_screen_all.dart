@@ -29,8 +29,10 @@ class ChatScreen extends StatelessWidget {
               children: [
                 ListTile(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: ((context) => InnerChatScreen() )));
-                    
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) =>const  InnerChatScreen())));
                   },
                   leading: CircleAvatar(
                     radius: width * 0.060,
@@ -42,9 +44,9 @@ class ChatScreen extends StatelessWidget {
                     'puneet',
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
-                  subtitle: Text('Thank you!! That was very helpful'),
+                  subtitle: const Text('Thank you!! That was very helpful'),
                 ),
-                Divider()
+                const Divider()
               ],
             ),
           );
