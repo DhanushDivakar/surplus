@@ -78,9 +78,8 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-             
               child: GridView.builder(
-               // physics: const NeverScrollableScrollPhysics(),
+                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                 ),
