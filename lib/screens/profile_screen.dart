@@ -22,7 +22,7 @@ class ProfileScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: MainAxisSize.max,
           children: [
             SizedBox(
               height: height * 0.020,
@@ -78,7 +78,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Flexible(
+            Expanded(
               child: GridView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -86,7 +86,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 itemCount: 10,
                 itemBuilder: (context, index) {
-                  return const  Card();
+                  return const Card();
                 },
               ),
             ),
