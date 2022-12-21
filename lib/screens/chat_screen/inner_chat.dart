@@ -11,35 +11,36 @@ class InnerChatScreen extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            leading: IconButton(
-              icon: Icon(
-                Icons.chevron_left_rounded,
-                color: Theme.of(context).colorScheme.primary,
-                size: 40,
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+        appBar: AppBar(
+          centerTitle: true,
+          leading: IconButton(
+            icon: Icon(
+              Icons.chevron_left_rounded,
+              color: Theme.of(context).colorScheme.primary,
+              size: 40,
             ),
-            title: const Text(
-              'puneet',
-              style: TextStyle(color: Colors.black),
-            ),
-            elevation: 1,
-            backgroundColor: Colors.white,
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
           ),
-          body: Container(
-            child: Column(
-              children: [
-                Expanded(
-                  child: Container(),
-                ),
-                NewChatScreen(),
-              ],
-            ),
-          )),
+          title: const Text(
+            'puneet',
+            style: TextStyle(color: Colors.black),
+          ),
+          elevation: 1,
+          backgroundColor: Colors.white,
+        ),
+        body: Container(
+          child: Column(
+            children: [
+              Expanded(
+                child: Container(),
+              ),
+              NewChatScreen(),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
