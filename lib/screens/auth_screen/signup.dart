@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:surplus/cubit/cubit/auth_cubit.dart';
+import 'package:surplus/cubit/cubit/image_picker.dart';
 import 'package:surplus/screens/auth_screen/otp.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -37,40 +41,85 @@ class SignUpScreen extends StatelessWidget {
                 SizedBox(
                   height: height * .030,
                 ),
-                Stack(
-                  children: [
-                    Center(
-                      child: CircleAvatar(
-                        radius: width * 0.20,
-                        backgroundColor: Theme.of(context).colorScheme.primary,
-                        foregroundImage: const NetworkImage(
-                            'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
-                      ),
-                    ),
-                   Positioned(
-                  bottom: 5,
-                  right: 120,
-                  child: Container(
-                    decoration:  BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      borderRadius:const  BorderRadius.all(
-                        Radius.circular(
-                          50,
+                BlocBuilder<ImagePickerCubit, String?>(
+                  builder: (context, state) {
+                    // final imageFile = File(state');
+                    return Stack(
+                      children: [
+                        Center(
+                          child: state != null
+                              ? SizedBox(
+                                  height: 0.20 * height,
+                                  width: 0.35 * width,
+                                  child: ClipOval(
+                                    child: Image.file(
+                                      File(state),
+                                      fit: BoxFit.cover,
+                                      //fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                )
+                              : SizedBox(
+                                  height: 0.20 * height,
+                                  width: 0.35 * width,
+                                  child: ClipOval(
+                                    child: Image.asset(
+                                      'assets/images/person.jpg',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
                         ),
-                      ),
-                    ),
-                    child: IconButton(
-                      onPressed:(){},
-                      icon: const Icon(
-                        
-                        Icons.mode_edit_outline_rounded,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                    ),
-                  ),
-                ),
-                  ],
+                        // child: CircleAvatar(
+                        //     radius: width * 0.18,
+                        //     backgroundColor:
+                        //         Theme.of(context).colorScheme.primary,
+
+                        //     // foregroundImage: const NetworkImage(
+                        //     //     'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
+                        //     // child: ClipRRect(
+                        //     //   borderRadius: BorderRadius.circular(100),
+                        //     //     child: (state != null)
+                        //     //         ? Image.file(File(state))
+                        //     //         : Image.network(
+                        //     //             'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'))
+
+                        //     // state != null && state.isNotEmpty
+                        //     //     ? Image.file(
+                        //     //         File(state),
+                        //     //         fit: BoxFit.cover,
+                        //     //       ) as ImageProvider
+                        //     //     : const NetworkImage(
+                        //     //         'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
+                        //     )),
+                        Positioned(
+                          bottom: 0.010 * height,
+                          right: 0.250 * width,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(
+                                  50,
+                                ),
+                              ),
+                            ),
+                            child: IconButton(
+                              onPressed: () {
+                                BlocProvider.of<ImagePickerCubit>(context)
+                                    .getImage(ImageSource.gallery);
+                              },
+                              icon: Icon(
+                                Icons.mode_edit_outline_rounded,
+                                color: Colors.white,
+                                size: 0.025 * height,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
                 SizedBox(
                   height: height * .030,
