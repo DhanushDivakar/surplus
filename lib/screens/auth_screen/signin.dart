@@ -4,11 +4,11 @@ import 'package:surplus/cubit/cubit/auth_cubit.dart';
 import 'package:surplus/screens/auth_screen/otp.dart';
 
 class SignInScreen extends StatelessWidget {
-  const SignInScreen({super.key});
+  SignInScreen({super.key});
+  final phoneNumberController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController phoneNumberController = TextEditingController();
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return SafeArea(
@@ -57,7 +57,7 @@ class SignInScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return const OtpScreen();
+                          return OtpScreen();
                         },
                       ),
                     );
@@ -72,15 +72,10 @@ class SignInScreen extends StatelessWidget {
                   return Center(
                     child: OutlinedButton(
                       onPressed: () {
+                        FocusScope.of(context).unfocus();
                         String phoneNumber = '+91${phoneNumberController.text}';
                         BlocProvider.of<AuthCubit>(context)
                             .sendOTP(phoneNumber);
-                        FocusScope.of(context).unfocus();
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const OtpScreen(),
-                          ),
-                        );
                       },
                       style: OutlinedButton.styleFrom(
                         side: BorderSide(

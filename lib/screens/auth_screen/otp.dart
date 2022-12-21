@@ -4,13 +4,13 @@ import 'package:surplus/cubit/cubit/auth_cubit.dart';
 import 'package:surplus/screens/home_screen/home_screen.dart';
 
 class OtpScreen extends StatelessWidget {
-  const OtpScreen({super.key});
+  OtpScreen({super.key});
+  final TextEditingController otpController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final TextEditingController otpController = TextEditingController();
 
     return SafeArea(
       child: Scaffold(
@@ -81,6 +81,7 @@ class OtpScreen extends StatelessWidget {
                   return Center(
                     child: OutlinedButton(
                       onPressed: () {
+                        FocusScope.of(context).unfocus();
                         BlocProvider.of<AuthCubit>(context)
                             .verifyOTP(otpController.text);
                         FocusScope.of(context).unfocus();

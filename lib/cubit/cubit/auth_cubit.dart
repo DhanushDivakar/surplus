@@ -19,6 +19,7 @@ class AuthCubit extends Cubit<AuthState> {
   void sendOTP(String phoneNumber) async {
     emit(AuthLoadingState());
     await _auth.verifyPhoneNumber(
+      phoneNumber: phoneNumber,
       verificationCompleted: (phoneAuthCredential) {
         signInWithPhone(phoneAuthCredential);
       },
