@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:surplus/cubit/cubit/auth_cubit.dart';
 import 'package:surplus/screens/auth_screen/otp.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -6,6 +8,7 @@ class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController phoneNumberController = TextEditingController();
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return SafeArea(
@@ -33,6 +36,7 @@ class SignInScreen extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               TextFormField(
+                controller: phoneNumberController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   fillColor: const Color.fromRGBO(230, 230, 230, 1),
@@ -46,26 +50,52 @@ class SignInScreen extends StatelessWidget {
               SizedBox(
                 height: height * .05,
               ),
-              Center(
-                child: OutlinedButton(
-                  onPressed: () {
-                    FocusScope.of(context).unfocus();
-                    Navigator.of(context).push(
+              BlocConsumer<AuthCubit, AuthState>(
+                listener: (context, state) {
+                  if (state is AuthCodeSentState) {
+                    Navigator.push(
+                      context,
                       MaterialPageRoute(
-                        builder: (context) => const OtpScreen(),
+                        builder: (context) {
+                          return const OtpScreen();
+                        },
                       ),
                     );
-                  },
-                  style: OutlinedButton.styleFrom(
-                    side: BorderSide(
-                        width: 1.0,
-                        color: Theme.of(context).colorScheme.primary),
-                  ),
-                  child:  Text(
-                    '  Sign in  ',
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: height * 0.020),
-                  ),
-                ),
+                  }
+                },
+                builder: (context, state) {
+                  if (state is AuthLoadingState) {
+                    return const Center(
+                      child: CircularProgressIndicator.adaptive(),
+                    );
+                  }
+                  return Center(
+                    child: OutlinedButton(
+                      onPressed: () {
+                        String phoneNumber = '+91${phoneNumberController.text}';
+                        BlocProvider.of<AuthCubit>(context)
+                            .sendOTP(phoneNumber);
+                        FocusScope.of(context).unfocus();
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const OtpScreen(),
+                          ),
+                        );
+                      },
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide(
+                            width: 1.0,
+                            color: Theme.of(context).colorScheme.primary),
+                      ),
+                      child: Text(
+                        '  Sign in  ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: height * 0.020),
+                      ),
+                    ),
+                  );
+                },
               ),
             ],
           ),
