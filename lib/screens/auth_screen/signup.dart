@@ -25,7 +25,7 @@ class SignUpScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: height * .050,
+                  height: height * .010,
                 ),
                 Center(
                   child: SizedBox(
@@ -33,6 +33,44 @@ class SignUpScreen extends StatelessWidget {
                     width: width * .70,
                     child: Image.asset('assets/images/logo.png'),
                   ),
+                ),
+                SizedBox(
+                  height: height * .030,
+                ),
+                Stack(
+                  children: [
+                    Center(
+                      child: CircleAvatar(
+                        radius: width * 0.20,
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        foregroundImage: const NetworkImage(
+                            'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
+                      ),
+                    ),
+                   Positioned(
+                  bottom: 5,
+                  right: 120,
+                  child: Container(
+                    decoration:  BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius:const  BorderRadius.all(
+                        Radius.circular(
+                          50,
+                        ),
+                      ),
+                    ),
+                    child: IconButton(
+                      onPressed:(){},
+                      icon: const Icon(
+                        
+                        Icons.mode_edit_outline_rounded,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                ),
+                  ],
                 ),
                 SizedBox(
                   height: height * .030,
