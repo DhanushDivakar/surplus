@@ -1,11 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:surplus/cubit/cubit/auth_cubit.dart';
 import 'package:surplus/screens/auth_screen/otp.dart';
+import 'package:surplus/screens/auth_screen/signup.dart';
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
   final phoneNumberController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -35,15 +38,25 @@ class SignInScreen extends StatelessWidget {
                 'Phone Number',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              TextFormField(
-                controller: phoneNumberController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  fillColor: const Color.fromRGBO(230, 230, 230, 1),
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
+              Form(
+                key: formKey,
+                child: TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty || value.length != 10) {
+                      return 'Enter correct number';
+                    } else {
+                      return null;
+                    }
+                  },
+                  controller: phoneNumberController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    fillColor: const Color.fromRGBO(230, 230, 230, 1),
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
                   ),
                 ),
               ),
@@ -57,7 +70,7 @@ class SignInScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return OtpScreen();
+                          return SigninOtp();
                         },
                       ),
                     );
@@ -71,11 +84,40 @@ class SignInScreen extends StatelessWidget {
                   }
                   return Center(
                     child: OutlinedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         FocusScope.of(context).unfocus();
-                        String phoneNumber = '+91${phoneNumberController.text}';
-                        BlocProvider.of<AuthCubit>(context)
-                            .sendOTP(phoneNumber);
+                        if (formKey.currentState?.validate() == true) {
+                          CollectionReference collectionRef =
+                              FirebaseFirestore.instance.collection('users');
+                          QuerySnapshot querySnapshot = await collectionRef
+                              .where('phoneNumber',
+                                  isEqualTo: phoneNumberController.text)
+                              .get();
+                          final allData = querySnapshot.docs
+                              .map((doc) => doc.data())
+                              .toList();
+                          if (allData.isEmpty) {
+                            // ignore: avoid_print
+                            print('new user');
+                            // ignore: use_build_context_synchronously
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return SignUpScreen(
+                                    phoneNo: phoneNumberController.text,
+                                  );
+                                },
+                              ),
+                            );
+                          } else {
+                            String phoneNumber =
+                                '+91${phoneNumberController.text}';
+                            // ignore: use_build_context_synchronously
+                            BlocProvider.of<AuthCubit>(context)
+                                .sendOTP(phoneNumber);
+                          }
+                        }
                       },
                       style: OutlinedButton.styleFrom(
                         side: BorderSide(
