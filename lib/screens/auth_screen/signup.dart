@@ -46,8 +46,8 @@ class SignUpScreen extends StatelessWidget {
                   BlocBuilder<ImagePickerCubit, String?>(
                     builder: (context, state) {
                       // final imageFile = File(state');
-                      final image = context.read<ImagePickerCubit>().state;
-                      print(image);
+                      // final image = context.read<ImagePickerCubit>().state;
+                      // print(image);
                       return Stack(
                         children: [
                           Center(
@@ -110,8 +110,12 @@ class SignUpScreen extends StatelessWidget {
                               ),
                               child: IconButton(
                                 onPressed: () {
+                                  // BlocProvider.of<Ima>
                                   BlocProvider.of<ImagePickerCubit>(context)
                                       .getImage(ImageSource.gallery);
+                                  final image =
+                                      context.read<ImagePickerCubit>().state;
+                                  print(image);
                                 },
                                 icon: Icon(
                                   Icons.mode_edit_outline_rounded,
