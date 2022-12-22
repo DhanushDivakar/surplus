@@ -1,14 +1,21 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:path/path.dart';
 import 'package:surplus/cubit/cubit/auth_cubit.dart';
 import 'package:surplus/screens/home_screen/home_screen.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
+import '../../cubit/cubit/image_picker.dart';
 
 class OtpScreen extends StatelessWidget {
   final String? name;
   final String? email;
   final String? phoneno;
+
   OtpScreen({super.key, this.name, this.email, this.phoneno});
   final TextEditingController otpController = TextEditingController();
   final formKey = GlobalKey<FormState>();
@@ -91,8 +98,14 @@ class OtpScreen extends StatelessWidget {
                     child: OutlinedButton(
                       onPressed: () async {
                         FocusScope.of(context).unfocus();
+                        FirebaseStorage storage = FirebaseStorage.instance;
+                        final image = context.read<ImagePickerCubit>().state;
+                        String fileName = basename(image!);
+                        Reference ref = storage.ref().child('uploads/$fileName');
 
-                        
+                        await ref.putFile(File(image));
+                        String imageUrl = await ref.getDownloadURL();
+
                         await FirebaseFirestore.instance
                             .collection('users')
                             .doc()
@@ -101,6 +114,7 @@ class OtpScreen extends StatelessWidget {
                           'userName': name,
                           'email': email,
                           'time': DateTime.now(),
+                          'image': imageUrl,
                         });
 
                         // ignore: use_build_context_synchronously
