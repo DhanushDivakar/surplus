@@ -23,7 +23,9 @@ class OtpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width; 
+    final width = MediaQuery.of(context).size.width;
+    final image = context.read<ImagePickerCubit>().state;
+    print(image);
 
     return SafeArea(
       child: Scaffold(
@@ -101,10 +103,12 @@ class OtpScreen extends StatelessWidget {
                         FirebaseStorage storage = FirebaseStorage.instance;
                         final image = context.read<ImagePickerCubit>().state;
                         String fileName = basename(image!);
-                        Reference ref = storage.ref().child('uploads/$fileName');
+                        Reference ref =
+                            storage.ref().child('uploads/$fileName');
 
                         await ref.putFile(File(image));
                         String imageUrl = await ref.getDownloadURL();
+                        print(imageUrl);
 
                         await FirebaseFirestore.instance
                             .collection('users')
