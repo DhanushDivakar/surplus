@@ -121,7 +121,7 @@ class OtpScreen extends StatelessWidget {
                           'image': imageUrl,
                         });
 
-                        // ignore: use_build_context_synchronously
+                      
                         BlocProvider.of<AuthCubit>(context)
                             .verifyOTP(otpController.text);
                       },
