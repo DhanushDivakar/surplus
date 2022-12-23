@@ -37,7 +37,19 @@ class AuthService {
         'phone': phone,
         'otp': otp,
       });
-      if (response.statusCode == 200) {}
-    } catch (error) {}
+      if (response.statusCode == 200) {
+        print(response.data);
+        return response.data;
+      }
+    } catch (error) {
+      print(error);
+      return;
+    }
+  }
+
+  Future register()async {
+    // try{
+
+    // }
   }
 }
