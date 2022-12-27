@@ -6,7 +6,7 @@ import 'package:surplus/repositories.dart/auth_repo.dart';
 
 part 'send_otp_event.dart';
 part 'send_otp_state.dart';
-//otp bloc 
+//otp bloc
 class SendOtpBloc extends Bloc<SendOtpEvent, SendOtpState> {
   final AuthRepository authRepository;
   SendOtpBloc({required this.authRepository}) : super(SendOtpInitial()) {
