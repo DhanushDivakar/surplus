@@ -28,9 +28,7 @@ class AuthService {
       }
     } catch (error) {
       print(error);
-    } on DioError catch (error) {
-      print(error.message);
-    }
+    } 
   }
 
   Future verifyOTP(String phone, String otp) async {
