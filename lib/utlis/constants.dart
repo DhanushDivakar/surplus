@@ -1,7 +1,7 @@
 
 
 const httpScheme = 'http';
-const baseUrl = 'localhost:3000';
+const baseUrl = '192.168.43.179:3000';
 
 const url = '$httpScheme://$baseUrl';
 

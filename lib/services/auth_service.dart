@@ -10,7 +10,7 @@ class AuthService {
   }
   final Dio dio;
 
-  final baseUrl = 'http://localhost:3000';
+  final baseUrl = 'http://192.168.43.179:3000';
 
   Future sendOTP(String phone) async {
     try {

@@ -66,16 +66,16 @@ class SignInScreen extends StatelessWidget {
               ),
               BlocConsumer<SendOtpBloc, SendOtpState>(
                 listener: (context, state) {
-                  if (state is SendOtpSuccess) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return SigninOtp();
-                        },
-                      ),
-                    );
-                  }
+                  // if (state is SendOtpSuccess) {
+                  //   Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //       builder: (context) {
+                  //         return SigninOtp();
+                  //       },
+                  //     ),
+                  //   );
+                  // }
                 },
                 builder: (context, state) {
                   if (state is SendingOtp) {
