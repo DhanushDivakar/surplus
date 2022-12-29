@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:surplus/bloc/auth/bloc/send_otp_bloc.dart';
 import 'package:surplus/cubit/cubit/auth_cubit.dart';
 import 'package:surplus/screens/auth_screen/otp.dart';
 import 'package:surplus/screens/auth_screen/signup.dart';
@@ -63,9 +64,9 @@ class SignInScreen extends StatelessWidget {
               SizedBox(
                 height: height * .05,
               ),
-              BlocConsumer<AuthCubit, AuthState>(
+              BlocConsumer<SendOtpBloc, SendOtpState>(
                 listener: (context, state) {
-                  if (state is AuthCodeSentState) {
+                  if (state is SendOtpSuccess) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -77,7 +78,7 @@ class SignInScreen extends StatelessWidget {
                   }
                 },
                 builder: (context, state) {
-                  if (state is AuthLoadingState) {
+                  if (state is SendingOtp) {
                     return const Center(
                       child: CircularProgressIndicator.adaptive(),
                     );
@@ -87,36 +88,39 @@ class SignInScreen extends StatelessWidget {
                       onPressed: () async {
                         FocusScope.of(context).unfocus();
                         if (formKey.currentState?.validate() == true) {
-                          CollectionReference collectionRef =
-                              FirebaseFirestore.instance.collection('users');
-                          QuerySnapshot querySnapshot = await collectionRef
-                              .where('phoneNumber',
-                                  isEqualTo: phoneNumberController.text)
-                              .get();
-                          final allData = querySnapshot.docs
-                              .map((doc) => doc.data())
-                              .toList();
-                          if (allData.isEmpty) {
-                            // ignore: avoid_print
-                            print('new user');
-                            // ignore: use_build_context_synchronously
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return SignUpScreen(
-                                    phoneNo: phoneNumberController.text,
-                                  );
-                                },
-                              ),
-                            );
-                          } else {
-                            String phoneNumber =
-                                '+91${phoneNumberController.text}';
-                            // ignore: use_build_context_synchronously
-                            BlocProvider.of<AuthCubit>(context)
-                                .sendOTP(phoneNumber);
-                          }
+                          context.read<SendOtpBloc>().add(SendOtpEvent(
+                                phone: phoneNumberController.text,
+                              ));
+                          //   CollectionReference collectionRef =
+                          //       FirebaseFirestore.instance.collection('users');
+                          //   QuerySnapshot querySnapshot = await collectionRef
+                          //       .where('phoneNumber',
+                          //           isEqualTo: phoneNumberController.text)
+                          //       .get();
+                          //   final allData = querySnapshot.docs
+                          //       .map((doc) => doc.data())
+                          //       .toList();
+                          //   if (allData.isEmpty) {
+                          //     // ignore: avoid_print
+                          //     print('new user');
+                          //     // ignore: use_build_context_synchronously
+                          //     Navigator.pushReplacement(
+                          //       context,
+                          //       MaterialPageRoute(
+                          //         builder: (context) {
+                          //           return SignUpScreen(
+                          //             phoneNo: phoneNumberController.text,
+                          //           );
+                          //         },
+                          //       ),
+                          //     );
+                          //   } else {
+                          //     String phoneNumber =
+                          //         '+91${phoneNumberController.text}';
+                          //     // ignore: use_build_context_synchronously
+                          //     BlocProvider.of<AuthCubit>(context)
+                          //         .sendOTP(phoneNumber);
+                          //   }
                         }
                       },
                       style: OutlinedButton.styleFrom(
