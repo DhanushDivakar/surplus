@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:surplus/models/jsonresponse.dart';
 import 'package:surplus/utlis/constants.dart';
 
 import '../models/user_model.dart';
@@ -12,7 +13,7 @@ class AuthService {
 
   final baseUrl = 'http://192.168.43.179:3000';
 
-  Future sendOTP(String phone) async {
+  Future<JsonResponse> sendOTP(String phone) async {
     try {
       final response = await dio.post(sendOtp, data: {
         'phone': phone,
@@ -20,18 +21,27 @@ class AuthService {
       print(response.data + response.statusCode);
       if (response.statusCode == 200) {
         print('Sucess');
-        return response.data;
+        return JsonResponse.success(
+            message: 'Otp send successfully', data: response.data);
       } else {
         print('Failure');
         print(response.statusCode);
-        return;
+        return JsonResponse.failure(
+            statusCode: response.statusCode ?? 500,
+            message: 'something went wrong');
       }
-    } catch (error) {
-      print(error);
-    } 
+    } on DioError catch (error) {
+      print(error.message);
+      return JsonResponse.failure(message: 'Dio error');
+    } on Exception catch (e) {
+      print(e);
+      return JsonResponse.failure(
+        message: 'Unxpected error',
+      );
+    }
   }
 
-  Future verifyOTP(String phone, String otp) async {
+  Future<JsonResponse> verifyOTP(String phone, String otp) async {
     try {
       final response = await dio.post(validateOTP, data: {
         'phone': phone,
@@ -39,27 +49,44 @@ class AuthService {
       });
       if (response.statusCode == 200) {
         print(response.data);
-        return response.data;
+        return JsonResponse.success(
+            message: 'Otp verified successfully', data: response.data);
+      } else {
+        return JsonResponse.failure(
+          message: 'something went wrong',
+          statusCode: response.statusCode ?? 500,
+        );
       }
     } catch (error) {
       print(error);
-      return;
+      return JsonResponse.failure(
+        message: 'something went wrong',
+      );
     }
   }
 
-  Future register(User user) async {
+  Future<JsonResponse> register(User user) async {
     try {
       final formData = FormData.fromMap(user.toJson());
       print('fiels: ${formData.files} ${formData.fields}');
       final response = await dio.post(registerUser, data: formData);
       if (response.statusCode == 200) {
-        return response.data;
+        //final user = User.fromJson(response.data)
+        return JsonResponse.success(
+          message: 'Registered successfully',
+          data: response.data,
+        );
       } else {
         print('${response.data} ${response.statusCode}');
-        return response.statusCode;
+        return JsonResponse.failure(
+          message: 'something went wrong',
+        );
       }
     } catch (error) {
       print(error);
+      return JsonResponse.failure(
+        message: 'error',
+      );
     }
   }
 }
