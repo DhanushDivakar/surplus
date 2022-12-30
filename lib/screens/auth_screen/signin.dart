@@ -66,16 +66,22 @@ class SignInScreen extends StatelessWidget {
               ),
               BlocConsumer<SendOtpBloc, SendOtpState>(
                 listener: (context, state) {
-                  // if (state is SendOtpSuccess) {
-                  //   Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //       builder: (context) {
-                  //         return SigninOtp();
-                  //       },
-                  //     ),
-                  //   );
-                  // }
+                  if (state is SendOtpSuccess) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return SigninOtp();
+                        },
+                      ),
+                    );
+                  } else if (state is SendOtpFailure) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(state.message),
+                      ),
+                    );
+                  }
                 },
                 builder: (context, state) {
                   if (state is SendingOtp) {
@@ -88,9 +94,11 @@ class SignInScreen extends StatelessWidget {
                       onPressed: () async {
                         FocusScope.of(context).unfocus();
                         if (formKey.currentState?.validate() == true) {
-                          context.read<SendOtpBloc>().add(SendOtpEvent(
-                                phone: phoneNumberController.text,
-                              ));
+                          context.read<SendOtpBloc>().add(
+                                SendOtpEvent(
+                                  phone: phoneNumberController.text,
+                                ),
+                              );
                           //   CollectionReference collectionRef =
                           //       FirebaseFirestore.instance.collection('users');
                           //   QuerySnapshot querySnapshot = await collectionRef

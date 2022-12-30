@@ -18,8 +18,14 @@ class SendOtpBloc extends Bloc<SendOtpEvent, SendOtpState> {
       SendOtpEvent event, Emitter<SendOtpState> emit) async {
     emit(SendingOtp());
     try {
-      await authRepository.sendOTP(event.phone);
-      emit(SendOtpSuccess());
+      final response = await authRepository.sendOTP(event.phone);
+      if (response.success) {
+        emit(SendOtpSuccess());
+      } else {
+        emit(
+          SendOtpFailure(message: response.message),
+        );
+      }
     } catch (error) {
       emit(
         SendOtpFailure(
