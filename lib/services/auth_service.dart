@@ -12,7 +12,7 @@ class AuthService {
   final Dio dio;
 
   final baseUrl = 'http://192.168.43.179:3000';
-//
+
   Future<JsonResponse> sendOTP(String phone) async {
     try {
       final response = await dio.post('http://192.168.43.179:3000/sendOTP', data: {
