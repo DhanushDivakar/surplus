@@ -30,13 +30,13 @@ class InnerChatScreen extends StatelessWidget {
           elevation: 1,
           backgroundColor: Colors.white,
         ),
-        body: Container(
+        body:  Container(
           child: Column(
             children: [
               Expanded(
                 child: Container(),
               ),
-              NewChatScreen(),
+             const  NewChatScreen(),
             ],
           ),
         ),

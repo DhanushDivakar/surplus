@@ -6,8 +6,8 @@ class NewChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 8),
-      padding: EdgeInsets.all(8),
+      margin: const EdgeInsets.only(top: 8),
+      padding: const EdgeInsets.all(8),
       child: Row(
         children: [
           Expanded(
@@ -29,7 +29,7 @@ class NewChatScreen extends StatelessWidget {
             child: FloatingActionButton(
               backgroundColor: Theme.of(context).primaryColor,
               onPressed: () {},
-              child: Icon(Icons.send_rounded),
+              child: const Icon(Icons.send_rounded),
             ),
           )
           // Container(

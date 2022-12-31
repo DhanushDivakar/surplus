@@ -1,10 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:surplus/bloc/auth/bloc/send_otp_bloc.dart';
-import 'package:surplus/cubit/cubit/auth_cubit.dart';
 import 'package:surplus/screens/auth_screen/otp.dart';
-import 'package:surplus/screens/auth_screen/signup.dart';
+
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
