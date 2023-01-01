@@ -11,7 +11,10 @@ class VerifyOTPINitial extends VerifyOTPState {}
 
 class VerifyingOTP extends VerifyOTPState {}
 
-class VerifyOTPSuccess extends VerifyOTPState {}
+class VerifyOTPSuccess extends VerifyOTPState {
+  final Login login;
+  const VerifyOTPSuccess({required this.login});
+}
 
 class VeriOTPFailure extends VerifyOTPState {
   const VeriOTPFailure({required this.message});
