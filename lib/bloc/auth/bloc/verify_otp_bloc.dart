@@ -19,7 +19,7 @@ class VerifyOTPBloc extends Bloc<VerifyOTPEvent, VerifyOTPState> {
         try{
           final response = await authRepository.verifOtp(event.phone, event.otp);
           if(response.success){
-            final 
+           // final 
           }
         }on Exception catch (e){
 
