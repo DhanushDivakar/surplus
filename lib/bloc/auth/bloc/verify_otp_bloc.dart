@@ -30,7 +30,15 @@ class VerifyOTPBloc extends Bloc<VerifyOTPEvent, VerifyOTPState> {
         final login = response.data as Login;
         authenticationBloc.add(AuthAuthenticated());
         emit(VerifyOTPSuccess(login: login));
+      } else {
+        emit(
+          VeriOTPFailure(message: response.message),
+        );
       }
-    } on Exception catch (e) {}
+    } on Exception catch (e) {
+      emit(
+        VeriOTPFailure(message: "Error: $e"),
+      );
+    }
   }
 }
