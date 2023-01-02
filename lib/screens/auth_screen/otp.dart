@@ -38,7 +38,7 @@ class _OtpScreenState extends State<OtpScreen> {
         body: BlocConsumer<VerifyOTPBloc, VerifyOTPState>(
           listener: (context, state) {
             if (state is VeriOTPFailure) {
-              print('old user');
+             
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(state.message),
@@ -55,6 +55,8 @@ class _OtpScreenState extends State<OtpScreen> {
                     },
                   ),
                 );
+              }else{
+
               }
             }
             Navigator.pushAndRemoveUntil(context, MaterialPageRoute(

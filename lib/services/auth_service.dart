@@ -60,7 +60,7 @@ class AuthService {
         );
       } else {
         return JsonResponse.failure(
-          message: 'something went wrong failed!!!',
+          message: 'something went wrong failed!',
           statusCode: response.statusCode ?? 500,
         );
       }
