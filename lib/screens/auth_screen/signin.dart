@@ -68,7 +68,9 @@ class SignInScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return OtpScreen();
+                          return OtpScreen(
+                            phoneno: phoneNumberController.text,
+                          );
                         },
                       ),
                     );

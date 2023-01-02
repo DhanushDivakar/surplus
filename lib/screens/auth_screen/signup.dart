@@ -191,7 +191,7 @@ class SignUpScreen extends StatelessWidget {
                               return OtpScreen(
                                 // name: nameController.text,
                                 // email: emailController.text,
-                                // phoneno: phoneNo,
+                                 phoneno: phoneNo,
                               );
                             },
                           ),

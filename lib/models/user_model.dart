@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 
-
 class User {
   String? phone;
   String? name;
@@ -35,24 +34,24 @@ class User {
         aadhaarPic: aadhaarPic ?? this.aadhaarPic,
       );
 
-  // factory User.fromJson(Map<String, dynamic> json) {
-  //   var profilePic = File('${json['profilePic']}').existsSync()
-  //       ? File('${json['profilePic']}')
-  //       : null;
+  factory User.fromJson(Map<String, dynamic> json) {
+    // var profilePic = File('${json['profilePic']}').existsSync()
+    //     ? File('${json['profilePic']}')
+    //     : null;
 
-  //   var aadhaarPic = File('${json['aadhaarPic']}').existsSync()
-  //       ? File('${json['aadhaarPic']}')
-  //       : null;
+    // var aadhaarPic = File('${json['aadhaarPic']}').existsSync()
+    //     ? File('${json['aadhaarPic']}')
+    //     : null;
 
-  //   return User(
-  //     phone: json['phone'],
-  //     name: json['name'],
-  //     email: json['email'],
-  //     profilePic: profilePic,
-  //     aadhaarNo: json['aadhaarNo'],
-  //     aadhaarPic: aadhaarPic,
-  //   );
-  // }
+    return User(
+      phone: json['phone'],
+      name: json['name'],
+      email: json['email'],
+      profilePic: json['profilePic'],
+      aadhaarNo: json['aadhaarNo'],
+      aadhaarPic: json['aadhaarPic'],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         'phone': phone,
