@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:surplus/cubit/cubit/aadhar_image_picker.dart';
-import 'package:surplus/cubit/cubit/auth_cubit.dart';
 import 'package:surplus/cubit/cubit/image_picker.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -258,13 +257,13 @@ class SignUpScreen extends StatelessWidget {
                   Center(
                     child: OutlinedButton(
                       onPressed: () async {
-                        print(phoneNo);
-                        String phoneNumber = '+91$phoneNo';
                         FocusScope.of(context).unfocus();
-                        if (formKey.currentState?.validate() == true) {
+                        if (formKey.currentState?.validate() == true &&
+                            context.read<ImagePickerCubit>().state != null &&
+                            context.read<AadharImagePicker>().state != null) {
                           // ignore: use_build_context_synchronously
-                          BlocProvider.of<AuthCubit>(context)
-                              .sendOTP(phoneNumber);
+                          // BlocProvider.of<AuthCubit>(context)
+                          //     .sendOTP(phoneNumber);
                         }
                       },
                       style: OutlinedButton.styleFrom(
