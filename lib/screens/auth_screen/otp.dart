@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:surplus/bloc/auth/bloc/verify_otp_bloc.dart';
 
-import 'package:surplus/cubit/cubit/auth_cubit.dart';
 import 'package:surplus/screens/auth_screen/signup.dart';
 import 'package:surplus/screens/home_screen/home_screen.dart';
-
-import '../../cubit/cubit/image_picker.dart';
 
 class OtpScreen extends StatefulWidget {
   // final String? name;
@@ -33,14 +30,15 @@ class _OtpScreenState extends State<OtpScreen> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final image = context.read<ImagePickerCubit>().state;
-    print(image);
+    // final image = context.read<ImagePickerCubit>().state;
+    // print(image);
 
     return SafeArea(
       child: Scaffold(
         body: BlocConsumer<VerifyOTPBloc, VerifyOTPState>(
           listener: (context, state) {
             if (state is VeriOTPFailure) {
+              print('old user');
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(state.message),
@@ -48,6 +46,7 @@ class _OtpScreenState extends State<OtpScreen> {
               );
             } else if (state is VerifyOTPSuccess) {
               if (state.login.accessToken == null) {
+                print('new user');
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(

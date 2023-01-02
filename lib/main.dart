@@ -3,7 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:surplus/bloc/auth/bloc/authentication_bloc.dart';
 import 'package:surplus/bloc/auth/bloc/send_otp_bloc.dart';
+import 'package:surplus/bloc/auth/bloc/verify_otp_bloc.dart';
 import 'package:surplus/cubit/bottom_bar_cubit.dart';
 import 'package:surplus/cubit/cubit/auth_cubit.dart';
 import 'package:surplus/cubit/cubit/image_picker.dart';
@@ -35,6 +37,16 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<SendOtpBloc>(
           create: (context) => SendOtpBloc(
+            authRepository: AuthRepositoryImpl(
+              authService: AuthService(
+                dio: Dio(),
+              ),
+            ),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => VerifyOTPBloc(
+            authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
             authRepository: AuthRepositoryImpl(
               authService: AuthService(
                 dio: Dio(),

@@ -113,7 +113,7 @@ class SignUpScreen extends StatelessWidget {
                                       .getImage(ImageSource.gallery);
                                   final image =
                                       context.read<ImagePickerCubit>().state;
-                                  print(image);
+                                //  print(image);
                                 },
                                 icon: Icon(
                                   Icons.mode_edit_outline_rounded,

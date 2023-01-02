@@ -6,19 +6,19 @@ import '../models/user_model.dart';
 
 class AuthService {
   AuthService({required this.dio}) {
-    print('$url url');
-    dio.options.baseUrl = url;
+   // print('$url url');
+   // dio.options.baseUrl = url;
   }
   final Dio dio;
 
-  final baseUrl = 'http://192.168.43.179:3000';//192.168.0.103
+ // final baseUrl = 'http://192.168.43.179:3000';//192.168.0.103
 //
   Future<JsonResponse> sendOTP(String phone) async {
     try {
       final response = await dio.post('http://192.168.0.114:3000/api/v1/users/sendOTP', data: {
         'phone': phone,
       });
-      print(response.data + response.statusCode);
+     // print(response.data + response.statusCode);
       if (response.statusCode == 200) {
         print('Sucess');
         return JsonResponse.success(
