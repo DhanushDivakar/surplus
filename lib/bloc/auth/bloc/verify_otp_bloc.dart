@@ -12,11 +12,11 @@ part 'verify_otp_state.dart';
 
 class VerifyOTPBloc extends Bloc<VerifyOTPEvent, VerifyOTPState> {
   final AuthRepository authRepository;
-  final AuthenticationBloc authenticationBloc;
+  //final AuthenticationBloc authenticationBloc;
 
-  VerifyOTPBloc(
-      {required this.authRepository, required this.authenticationBloc})
-      : super(VerifyOTPINitial()) {
+  VerifyOTPBloc({
+    required this.authRepository,
+  }) : super(VerifyOTPINitial()) {
     on<VerifyOTPEvent>(_onVerifyOTPEvent);
   }
 //hii
@@ -28,7 +28,7 @@ class VerifyOTPBloc extends Bloc<VerifyOTPEvent, VerifyOTPState> {
       if (response.success) {
         // final
         final login = response.data as Login;
-        authenticationBloc.add(AuthAuthenticated());
+       // authenticationBloc.add(AuthAuthenticated());
         emit(VerifyOTPSuccess(login: login));
       } else {
         emit(

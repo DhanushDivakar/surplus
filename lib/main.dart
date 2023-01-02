@@ -35,6 +35,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<BottomBarCubit>(
           create: (context) => BottomBarCubit(),
         ),
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => AuthenticationBloc(),
+        ),
         BlocProvider<SendOtpBloc>(
           create: (context) => SendOtpBloc(
             authRepository: AuthRepositoryImpl(
@@ -46,7 +49,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => VerifyOTPBloc(
-            authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
+         //   authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
             authRepository: AuthRepositoryImpl(
               authService: AuthService(
                 dio: Dio(),
