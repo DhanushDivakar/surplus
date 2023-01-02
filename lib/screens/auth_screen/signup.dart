@@ -189,9 +189,9 @@ class SignUpScreen extends StatelessWidget {
                           MaterialPageRoute(
                             builder: (context) {
                               return OtpScreen(
-                                name: nameController.text,
-                                email: emailController.text,
-                                phoneno: phoneNo,
+                                // name: nameController.text,
+                                // email: emailController.text,
+                                // phoneno: phoneNo,
                               );
                             },
                           ),

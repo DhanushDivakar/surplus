@@ -68,7 +68,7 @@ class SignInScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return SigninOtp();
+                          return OtpScreen();
                         },
                       ),
                     );
