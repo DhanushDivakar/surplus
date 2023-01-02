@@ -16,15 +16,17 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-
   @override
   void initState() {
-   context.read<LocationCubit>().getLocation();
+    BlocProvider.of<LocationCubit>(context).getLocation();
     super.initState();
   }
+
   final nameController = TextEditingController();
 
   final emailController = TextEditingController();
+
+  final aadharController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
 
@@ -38,6 +40,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: Padding(
             padding: const EdgeInsets.all(30.0),
             child: Form(
+              autovalidateMode: AutovalidateMode.always,
               key: formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,83 +63,73 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       // final imageFile = File(state');
                       // final image = context.read<ImagePickerCubit>().state;
                       // print(image);
-                      return Stack(
+                      return Column(
                         children: [
-                          Center(
-                            child: state != null
-                                ? SizedBox(
-                                    height: 0.20 * height,
-                                    width: 0.35 * width,
-                                    child: ClipOval(
-                                      child: Image.file(
-                                        File(state),
-                                        fit: BoxFit.cover,
-                                        //fit: BoxFit.cover,
+                          Stack(
+                            children: [
+                              Center(
+                                child: state != null
+                                    ? SizedBox(
+                                        height: 0.20 * height,
+                                        width: 0.35 * width,
+                                        child: ClipOval(
+                                          child: Image.file(
+                                            File(state),
+                                            fit: BoxFit.cover,
+                                            //fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      )
+                                    : SizedBox(
+                                        height: 0.20 * height,
+                                        width: 0.35 * width,
+                                        child: ClipOval(
+                                          child: Image.asset(
+                                            'assets/images/person.jpg',
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  )
-                                : SizedBox(
-                                    height: 0.20 * height,
-                                    width: 0.35 * width,
-                                    child: ClipOval(
-                                      child: Image.asset(
-                                        'assets/images/person.jpg',
-                                        fit: BoxFit.cover,
+                              ),
+                              Positioned(
+                                bottom: 0.010 * height,
+                                right: 0.250 * width,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).primaryColor,
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(
+                                        50,
                                       ),
                                     ),
                                   ),
-                          ),
-                          // child: CircleAvatar(
-                          //     radius: width * 0.18,
-                          //     backgroundColor:
-                          //         Theme.of(context).colorScheme.primary,
-
-                          //     // foregroundImage: const NetworkImage(
-                          //     //     'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
-                          //     // child: ClipRRect(
-                          //     //   borderRadius: BorderRadius.circular(100),
-                          //     //     child: (state != null)
-                          //     //         ? Image.file(File(state))
-                          //     //         : Image.network(
-                          //     //             'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'))
-
-                          //     // state != null && state.isNotEmpty
-                          //     //     ? Image.file(
-                          //     //         File(state),
-                          //     //         fit: BoxFit.cover,
-                          //     //       ) as ImageProvider
-                          //     //     : const NetworkImage(
-                          //     //         'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
-                          //     )),
-                          Positioned(
-                            bottom: 0.010 * height,
-                            right: 0.250 * width,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColor,
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(
-                                    50,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      // BlocProvider.of<Ima>
+                                      BlocProvider.of<ImagePickerCubit>(context)
+                                          .getImage(ImageSource.gallery);
+                                      // final image = context
+                                      //     .read<ImagePickerCubit>()
+                                      //     .state;
+                                      //  print(image);
+                                    },
+                                    icon: Icon(
+                                      Icons.mode_edit_outline_rounded,
+                                      color: Colors.white,
+                                      size: 0.025 * height,
+                                    ),
                                   ),
                                 ),
                               ),
-                              child: IconButton(
-                                onPressed: () {
-                                  // BlocProvider.of<Ima>
-                                  BlocProvider.of<ImagePickerCubit>(context)
-                                      .getImage(ImageSource.gallery);
-                                  final image =
-                                      context.read<ImagePickerCubit>().state;
-                                  //  print(image);
-                                },
-                                icon: Icon(
-                                  Icons.mode_edit_outline_rounded,
-                                  color: Colors.white,
-                                  size: 0.025 * height,
-                                ),
-                              ),
-                            ),
+                            ],
                           ),
+                          if (state == null)
+                            const Text(
+                              'Please pick an image *',
+                              style: TextStyle(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold),
+                            )
                         ],
                       );
                     },
@@ -150,7 +143,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   TextFormField(
                     validator: (value) {
-                      if (value!.isEmpty || value.length < 5) {
+                      if (value!.isEmpty) {
                         return 'Enter correct name';
                       } else {
                         return null;
@@ -175,7 +168,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   TextFormField(
                     validator: (value) {
-                      if (value!.isEmpty || !value.contains('@')) {
+                      if (value!.isEmpty ||
+                          !value.contains('@') ||
+                          !value.contains('.')) {
                         return 'Enter correct email';
                       } else {
                         return null;
@@ -201,14 +196,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   TextFormField(
                     validator: (value) {
-                      if (value!.isEmpty && value.length > 10) {
-                        return 'Enter correct number';
+                      if (value!.isEmpty || value.length > 10) {
+                        return 'Enter number';
                       } else {
                         return null;
                       }
                     },
-                    controller: emailController,
-                    keyboardType: TextInputType.emailAddress,
+                    controller: aadharController,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       fillColor: const Color.fromRGBO(230, 230, 230, 1),
                       filled: true,
@@ -245,12 +240,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             BlocBuilder<AadharImagePicker, String?>(
                               builder: (context, state) {
                                 return TextButton(
-                                    onPressed: () {
-                                      context
-                                          .read<AadharImagePicker>()
-                                          .resetImage();
-                                    },
-                                    child: const Text("Reset Image"));
+                                  onPressed: () {
+                                    context
+                                        .read<AadharImagePicker>()
+                                        .resetImage();
+                                  },
+                                  child: const Text("Reset Image"),
+                                );
                               },
                             )
                           ],

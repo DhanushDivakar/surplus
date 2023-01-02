@@ -17,7 +17,7 @@ class AuthService {
   Future<JsonResponse> sendOTP(String phone) async {
     try {
       final response = await dio
-          .post('http://192.168.0.114:3000/api/v1/users/sendOTP', data: {
+          .post('http://192.168.43.179:3000/api/v1/users/sendOTP', data: {
         'phone': phone,
       });
       // print(response.data + response.statusCode);
@@ -46,7 +46,7 @@ class AuthService {
   Future<JsonResponse> verifyOTP(String phone, String otp) async {
     try {
       final response = await dio
-          .post('http://192.168.0.114:3000/api/v1/users/validateOTP', data: {
+          .post('http://192.168.43.179:3000/api/v1/users/validateOTP', data: {
         'phone': phone,
         'otp': otp,
       });
