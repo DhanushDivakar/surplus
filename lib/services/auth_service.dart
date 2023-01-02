@@ -1,26 +1,28 @@
 import 'package:dio/dio.dart';
 import 'package:surplus/models/jsonresponse.dart';
+import 'package:surplus/models/login_surplus.dart';
 import 'package:surplus/utlis/constants.dart';
 
 import '../models/user_model.dart';
 
 class AuthService {
   AuthService({required this.dio}) {
-   // print('$url url');
-   // dio.options.baseUrl = url;
+    // print('$url url');
+    dio.options.baseUrl = url;
   }
   final Dio dio;
 
- // final baseUrl = 'http://192.168.43.179:3000';//192.168.0.103
+  // final baseUrl = 'http://192.168.43.179:3000';//192.168.0.103
 //
   Future<JsonResponse> sendOTP(String phone) async {
     try {
-      final response = await dio.post('http://192.168.0.114:3000/api/v1/users/sendOTP', data: {
+      final response = await dio
+          .post('http://192.168.0.114:3000/api/v1/users/sendOTP', data: {
         'phone': phone,
       });
-     // print(response.data + response.statusCode);
+      // print(response.data + response.statusCode);
       if (response.statusCode == 200) {
-        print('Sucess');
+        print('Success');
         return JsonResponse.success(
             message: 'Otp send successfully', data: response.data);
       } else {
@@ -43,24 +45,29 @@ class AuthService {
 
   Future<JsonResponse> verifyOTP(String phone, String otp) async {
     try {
-      final response = await dio.post(validateOTP, data: {
+      final response = await dio
+          .post('http://192.168.0.114:3000/api/v1/users/validateOTP', data: {
         'phone': phone,
         'otp': otp,
       });
+      print(response.data.toString());
       if (response.statusCode == 200) {
+        final login = Login.fromJson(response.data);
         print(response.data);
         return JsonResponse.success(
-            message: 'Otp verified successfully', data: response.data);
+          message: 'Otp verified successfully',
+          data: login,
+        );
       } else {
         return JsonResponse.failure(
-          message: 'something went wrong',
+          message: 'something went wrong failed!!!',
           statusCode: response.statusCode ?? 500,
         );
       }
     } catch (error) {
       print(error);
       return JsonResponse.failure(
-        message: 'something went wrong',
+        message: 'something went wrong!',
       );
     }
   }
