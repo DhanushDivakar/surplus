@@ -15,7 +15,7 @@ class AuthService {
 //
   Future<JsonResponse> sendOTP(String phone) async {
     try {
-      final response = await dio.post('http://192.168.0.103:3000/api/v1/users/sendOTP', data: {
+      final response = await dio.post('http://192.168.0.114:3000/api/v1/users/sendOTP', data: {
         'phone': phone,
       });
       print(response.data + response.statusCode);

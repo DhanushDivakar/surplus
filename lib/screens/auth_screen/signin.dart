@@ -75,6 +75,7 @@ class SignInScreen extends StatelessWidget {
                       ),
                     );
                   } else if (state is SendOtpFailure) {
+                    print(state.message);
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(state.message),
