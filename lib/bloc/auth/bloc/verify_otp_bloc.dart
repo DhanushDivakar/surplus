@@ -22,14 +22,18 @@ class VerifyOTPBloc extends Bloc<VerifyOTPEvent, VerifyOTPState> {
 //hii
   FutureOr<void> _onVerifyOTPEvent(
       VerifyOTPEvent event, Emitter<VerifyOTPState> emit) async {
-    emit(VerifyingOTP());
+    emit(
+      VerifyingOTP(),
+    );
     try {
       final response = await authRepository.verifOtp(event.phone, event.otp);
       if (response.success) {
         // final
         final login = response.data as Login;
-       // authenticationBloc.add(AuthAuthenticated());
-        emit(VerifyOTPSuccess(login: login));
+        // authenticationBloc.add(AuthAuthenticated());
+        emit(
+          VerifyOTPSuccess(login: login),
+        );
       } else {
         emit(
           VeriOTPFailure(message: response.message),
