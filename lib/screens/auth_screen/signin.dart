@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:surplus/bloc/auth/bloc/send_otp_bloc.dart';
 import 'package:surplus/screens/auth_screen/otp.dart';
 
-
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
   final phoneNumberController = TextEditingController();

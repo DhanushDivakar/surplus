@@ -15,22 +15,22 @@ class RegisterBlocBloc extends Bloc<RegisterBlocEvent, RegisterBlocState> {
 
   RegisterBlocBloc({required this.authRepository})
       : super(RegisterBlocInitial()) {
-    on<RegisterBlocEvent>(_onRegister);
+    on<Register>(_onRegister);
   }
 
   FutureOr<void> _onRegister(
-      RegisterBlocEvent event, Emitter<RegisterBlocState> emit) async {
-    // emit(Registering());
-    // try {
-    //   final response = await authRepository.register(event.);
-    //   if (response.success) {
-    //     final login = response.data as Login;
-    //     emit(Registerd());
-    //   } else {
-    //     emit(RegisterFailed(message: response.message));
-    //   }
-    // } on Exception catch (e) {
-    //   emit(RegisterFailed(message: 'Error: $e'));
-    // }
+      Register event, Emitter<RegisterBlocState> emit) async {
+    emit(Registering());
+    try {
+      final response = await authRepository.register(event.user);
+      if (response.success) {
+        final login = response.data as Login;
+        emit(Registerd());
+      } else {
+        emit(RegisterFailed(message: response.message));
+      }
+    } on Exception catch (e) {
+      emit(RegisterFailed(message: 'Error: $e'));
+    }
   }
 }
