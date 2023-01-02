@@ -7,6 +7,7 @@ import 'package:surplus/bloc/auth/bloc/authentication_bloc.dart';
 import 'package:surplus/bloc/auth/bloc/send_otp_bloc.dart';
 import 'package:surplus/bloc/auth/bloc/verify_otp_bloc.dart';
 import 'package:surplus/cubit/bottom_bar_cubit.dart';
+import 'package:surplus/cubit/cubit/aadhar_image_picker.dart';
 import 'package:surplus/cubit/cubit/auth_cubit.dart';
 import 'package:surplus/cubit/cubit/image_picker.dart';
 import 'package:surplus/repositories.dart/auth_repo.dart';
@@ -49,7 +50,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => VerifyOTPBloc(
-         //   authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
+            //   authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
             authRepository: AuthRepositoryImpl(
               authService: AuthService(
                 dio: Dio(),
@@ -62,6 +63,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ImagePickerCubit(),
+        ),
+        BlocProvider(
+          create: (context) => AadharImagePicker(),
         ),
       ],
       child: MaterialApp(

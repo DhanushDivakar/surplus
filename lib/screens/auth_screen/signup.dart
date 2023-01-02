@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:surplus/cubit/cubit/aadhar_image_picker.dart';
 import 'package:surplus/cubit/cubit/auth_cubit.dart';
 import 'package:surplus/cubit/cubit/image_picker.dart';
-import 'package:surplus/screens/auth_screen/otp.dart';
 
 class SignUpScreen extends StatelessWidget {
   final String phoneNo;
@@ -113,7 +113,7 @@ class SignUpScreen extends StatelessWidget {
                                       .getImage(ImageSource.gallery);
                                   final image =
                                       context.read<ImagePickerCubit>().state;
-                                //  print(image);
+                                  //  print(image);
                                 },
                                 icon: Icon(
                                   Icons.mode_edit_outline_rounded,
@@ -179,58 +179,157 @@ class SignUpScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: height * .05,
+                    height: height * .030,
                   ),
-                  BlocConsumer<AuthCubit, AuthState>(
-                    listener: (context, state) {
-                      if (state is AuthCodeSentState) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return OtpScreen(
-                                // name: nameController.text,
-                                // email: emailController.text,
-                                 phoneno: phoneNo,
-                              );
-                            },
-                          ),
-                        );
+                  const Text(
+                    'Enter Aadhaar Number',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty && value.length > 10) {
+                        return 'Enter correct number';
+                      } else {
+                        return null;
                       }
                     },
+                    controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      fillColor: const Color.fromRGBO(230, 230, 230, 1),
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: height * .020,
+                  ),
+                  BlocBuilder<AadharImagePicker, String?>(
                     builder: (context, state) {
-                      if (state is AuthLoadingState) {
-                        return const Center(
-                          child: CircularProgressIndicator.adaptive(),
+                      if (state != null) {
+                        print(state);
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Center(
+                              child: SizedBox(
+                                height: 0.20 * height,
+                                width: double.infinity,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.file(
+                                    File(state),
+                                    fit: BoxFit.cover,
+                                    //fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            BlocBuilder<AadharImagePicker, String?>(
+                              builder: (context, state) {
+                                return TextButton(
+                                    onPressed: () {
+                                      context
+                                          .read<AadharImagePicker>()
+                                          .resetImage();
+                                    },
+                                    child: const Text("Reset Image"));
+                              },
+                            )
+                          ],
                         );
                       }
-                      return Center(
-                        child: OutlinedButton(
-                          onPressed: () async {
-                            print(phoneNo);
-                            String phoneNumber = '+91$phoneNo';
-                            FocusScope.of(context).unfocus();
-                            if (formKey.currentState?.validate() == true) {
-                              // ignore: use_build_context_synchronously
-                              BlocProvider.of<AuthCubit>(context)
-                                  .sendOTP(phoneNumber);
-                            }
-                          },
-                          style: OutlinedButton.styleFrom(
-                            side: BorderSide(
-                                width: 1.0,
-                                color: Theme.of(context).colorScheme.primary),
-                          ),
-                          child: Text(
-                            '  Sign in  ',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: height * 0.020),
-                          ),
-                        ),
+                      return TextButton(
+                        onPressed: () {
+                          context
+                              .read<AadharImagePicker>()
+                              .getAadharImage(ImageSource.gallery);
+                        },
+                        child: const Text('Pick aadhar image '),
                       );
                     },
                   ),
+                  SizedBox(
+                    height: height * .05,
+                  ),
+                  Center(
+                    child: OutlinedButton(
+                      onPressed: () async {
+                        print(phoneNo);
+                        String phoneNumber = '+91$phoneNo';
+                        FocusScope.of(context).unfocus();
+                        if (formKey.currentState?.validate() == true) {
+                          // ignore: use_build_context_synchronously
+                          BlocProvider.of<AuthCubit>(context)
+                              .sendOTP(phoneNumber);
+                        }
+                      },
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide(
+                            width: 1.0,
+                            color: Theme.of(context).colorScheme.primary),
+                      ),
+                      child: Text(
+                        '  Sign in  ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: height * 0.020),
+                      ),
+                    ),
+                  ),
+                  // BlocConsumer<AuthCubit, AuthState>(
+                  //   listener: (context, state) {
+                  //     if (state is AuthCodeSentState) {
+                  //       Navigator.push(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //           builder: (context) {
+                  //             return OtpScreen(
+                  //               // name: nameController.text,
+                  //               // email: emailController.text,
+                  //               phoneno: phoneNo,
+                  //             );
+                  //           },
+                  //         ),
+                  //       );
+                  //     }
+                  //   },
+                  //   builder: (context, state) {
+                  //     if (state is AuthLoadingState) {
+                  //       return const Center(
+                  //         child: CircularProgressIndicator.adaptive(),
+                  //       );
+                  //     }
+                  //     return Center(
+                  //       child: OutlinedButton(
+                  //         onPressed: () async {
+                  //           print(phoneNo);
+                  //           String phoneNumber = '+91$phoneNo';
+                  //           FocusScope.of(context).unfocus();
+                  //           if (formKey.currentState?.validate() == true) {
+                  //             // ignore: use_build_context_synchronously
+                  //             BlocProvider.of<AuthCubit>(context)
+                  //                 .sendOTP(phoneNumber);
+                  //           }
+                  //         },
+                  //         style: OutlinedButton.styleFrom(
+                  //           side: BorderSide(
+                  //               width: 1.0,
+                  //               color: Theme.of(context).colorScheme.primary),
+                  //         ),
+                  //         child: Text(
+                  //           '  Sign in  ',
+                  //           style: TextStyle(
+                  //               fontWeight: FontWeight.w600,
+                  //               fontSize: height * 0.020),
+                  //         ),
+                  //       ),
+                  //     );
+                  //   },
+                  // ),
                 ],
               ),
             ),

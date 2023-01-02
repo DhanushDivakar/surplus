@@ -38,7 +38,6 @@ class _OtpScreenState extends State<OtpScreen> {
         body: BlocConsumer<VerifyOTPBloc, VerifyOTPState>(
           listener: (context, state) {
             if (state is VeriOTPFailure) {
-             
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(state.message),
@@ -55,15 +54,15 @@ class _OtpScreenState extends State<OtpScreen> {
                     },
                   ),
                 );
-              }else{
-
+              } else {
+                print('old user');
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                  builder: (context) {
+                    return const HomeScreen();
+                  },
+                ), (route) => route is HomeScreen);
               }
             }
-            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-              builder: (context) {
-                return const HomeScreen();
-              },
-            ), (route) => route is HomeScreen);
           },
           builder: (context, state) {
             if (state is VerifyingOTP) {
