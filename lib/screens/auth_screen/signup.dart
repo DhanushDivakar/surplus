@@ -5,12 +5,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:surplus/cubit/cubit/aadhar_image_picker.dart';
 import 'package:surplus/cubit/cubit/image_picker.dart';
+import 'package:surplus/cubit/cubit/location_cubit.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
   final String phoneNo;
-  SignUpScreen({super.key, required this.phoneNo});
+  const SignUpScreen({super.key, required this.phoneNo});
+
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+
+  @override
+  void initState() {
+   context.read<LocationCubit>().getLocation();
+    super.initState();
+  }
   final nameController = TextEditingController();
+
   final emailController = TextEditingController();
+
   final formKey = GlobalKey<FormState>();
 
   @override

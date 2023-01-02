@@ -10,6 +10,7 @@ import 'package:surplus/cubit/bottom_bar_cubit.dart';
 import 'package:surplus/cubit/cubit/aadhar_image_picker.dart';
 import 'package:surplus/cubit/cubit/auth_cubit.dart';
 import 'package:surplus/cubit/cubit/image_picker.dart';
+import 'package:surplus/cubit/cubit/location_cubit.dart';
 import 'package:surplus/repositories.dart/auth_repo.dart';
 import 'package:surplus/screens/auth_screen/signin.dart';
 import 'package:surplus/screens/home_screen/home_screen.dart';
@@ -35,6 +36,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<BottomBarCubit>(
           create: (context) => BottomBarCubit(),
+        ),
+         BlocProvider<LocationCubit>(
+          create: (context) => LocationCubit(),
         ),
         BlocProvider<AuthenticationBloc>(
           create: (context) => AuthenticationBloc(),
