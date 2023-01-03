@@ -20,8 +20,7 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   @override
   void initState() {
-     BlocProvider.of<LocationCubit>(context).getCurrentPosition();
-    
+    BlocProvider.of<LocationCubit>(context).getCurrentPosition();
 
     super.initState();
   }
@@ -298,9 +297,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     null &&
                                 context.read<AadharImagePicker>().state !=
                                     null) {
-                                   //   context.read<RegisterBlocBloc>().add(Register(user: ))
-                                   //   context.read<RegisterBlocBloc>().add(Register(user: state.copyWith() ));
-                                     
+                              //  context.read<RegisterBlocBloc>().add(Register(name:  ))
+                              //   context.read<RegisterBlocBloc>().add(Register(user: state.copyWith() ));
+
                               // ignore: use_build_context_synchronously
                               // BlocProvider.of<AuthCubit>(context)
                               //     .sendOTP(phoneNumber);

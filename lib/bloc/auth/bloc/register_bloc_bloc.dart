@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +23,7 @@ class RegisterBlocBloc extends Bloc<RegisterBlocEvent, RegisterBlocState> {
       Register event, Emitter<RegisterBlocState> emit) async {
     emit(Registering());
     try {
-      final response = await authRepository.register(event.user);
+      final response = await authRepository.register( event.profilePic, event.name, event.email, event.aadharNo, event.aadharPic);
       if (response.success) {
         final user = response.data as User;
 

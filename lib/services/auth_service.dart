@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:surplus/models/jsonresponse.dart';
 import 'package:surplus/models/login_surplus.dart';
@@ -72,14 +74,30 @@ class AuthService {
     }
   }
 
-  Future<JsonResponse> register(User user) async {
+  Future<JsonResponse> register(
+      String name,
+      String phone,
+      String email,
+      File profilePic,
+      File aadharPic,
+      String aadharNo,
+      String lat,
+      String long) async {
     try {
-      final formData = FormData.fromMap(user.toJson());
-      print('fiels: ${formData.files} ${formData.fields}');
-      final response = await dio.post(
-          'http://192.168.0.106:3000/api/v1/users/register',
-          data: formData);
-      if (response.statusCode == 200) {
+      //final formData = FormData.fromMap(user.toJson());
+      // print('fiels: ${formData.files} ${formData.fields}');
+      final response = await dio
+          .post('http://192.168.0.106:3000/api/v1/users/register', data: {
+        'name': name,
+        'phone': phone,
+        'email': email,
+        'profilePic': profilePic,
+        'aadharPic': aadharPic,
+        'aadharNo': aadharNo,
+        'lat': lat,
+        'long': long,
+      });
+      if (response.statusCode == 201) {
         //final user = User.fromJson(response.data)
         return JsonResponse.success(
           message: 'Registered successfully',
