@@ -11,9 +11,7 @@ class RegisterBlocInitial extends RegisterBlocState {}
 
 class Registering extends RegisterBlocState{}
 
-class Registerd extends RegisterBlocState{
-  
-}
+class Registerd extends RegisterBlocState{}
 
 
 class RegisterFailed extends RegisterBlocState{
