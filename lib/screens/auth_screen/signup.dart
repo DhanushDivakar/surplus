@@ -298,6 +298,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     null &&
                                 context.read<AadharImagePicker>().state !=
                                     null) {
+                                   //   context.read<RegisterBlocBloc>().add(Register(user: ))
                                    //   context.read<RegisterBlocBloc>().add(Register(user: state.copyWith() ));
                                      
                               // ignore: use_build_context_synchronously

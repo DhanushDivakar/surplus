@@ -24,8 +24,11 @@ class RegisterBlocBloc extends Bloc<RegisterBlocEvent, RegisterBlocState> {
     try {
       final response = await authRepository.register(event.user);
       if (response.success) {
-        final login = response.data as Login;
-        emit(Registerd());
+        final user = response.data as User;
+
+        emit(
+          Registerd(user: user),
+        );
       } else {
         emit(RegisterFailed(message: response.message));
       }
