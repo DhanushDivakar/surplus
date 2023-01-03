@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
           create: (context) => BottomBarCubit(),
         ),
         BlocProvider<LocationCubit>(
+          lazy: false,
           create: (context) => LocationCubit(),
         ),
         BlocProvider<AuthenticationBloc>(
@@ -94,7 +95,7 @@ class MyApp extends StatelessWidget {
 
             //primarySwatch: Color.fromRGBO(241, 90, 41, 1),
           ),
-          home: SignInScreen()
+          home: SignUpScreen()
           //  BlocBuilder<AuthCubit, AuthState>(
           //   buildWhen: (previous, current) {
           //     return previous is AuthInitialState;

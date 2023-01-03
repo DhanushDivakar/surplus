@@ -8,10 +8,10 @@ part 'location_state.dart';
 
 class LocationCubit extends Cubit<LocationState> {
   LocationCubit() : super(const LocationState()) {
-    getLocation();
+    getCurrentPosition();
   }
 
-  void getLocation() async {
+  void getCurrentPosition() async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -21,40 +21,42 @@ class LocationCubit extends Cubit<LocationState> {
     try {
       if (!serviceEnabled) {
         emit(state.copyWith(
-            isLoading: false, error: 'service is not available'));
+            isLoading: false, error: 'service is not available!'));
+        //emit(LocationDenied('not able to acess'));
       }
       permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
-        emit(
-          state.copyWith(
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          emit(state.copyWith(
               isLoading: false,
-              error: 'please turn on Location',
-              permission: LocationPermission.denied),
-        );
+              error: 'please turn on location',
+              permission: LocationPermission.denied));
+        }
       } else if (permission == LocationPermission.deniedForever) {
-        emit(
-          state.copyWith(
-              isLoading: false,
-              error: 'please turn on Location',
-              permission: LocationPermission.deniedForever),
-        );
+        emit(state.copyWith(
+            isLoading: false,
+            error: 'please turn on location',
+            permission: LocationPermission.deniedForever));
+
         await Geolocator.openLocationSettings();
       }
-      Position currentPostion = await Geolocator.getCurrentPosition(
+      Position currenPosition = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
+      //print('lat ${currenPosition.latitude}');
+      //print('log ${currenPosition.longitude}');
       emit(
         state.copyWith(
           isLoading: false,
           permission: LocationPermission.whileInUse,
           location: Location(
-              latitude: currentPostion.latitude,
-              longitude: currentPostion.longitude),
+            latitude: currenPosition.latitude,
+            longitude: currenPosition.longitude,
+          ),
         ),
       );
-    } catch (e) {
-      emit(
-        state.copyWith(isLoading: false),
-      );
+    } catch (error) {
+      emit(state.copyWith(isLoading: false));
     }
   }
 }

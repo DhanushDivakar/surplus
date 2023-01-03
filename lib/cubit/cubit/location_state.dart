@@ -30,3 +30,26 @@ class LocationState extends Equatable {
   List<Object?> get props => [location, isLoading, error, permission];
 }
 
+// class LocationError extends LocationState{
+//   final String? error;
+//   LocationError({this.error});
+// }
+
+// class LocationInitial extends LocationState {}
+
+// class LocationAcessed extends LocationState {
+//   final String? latitude;
+//   final String? longitude;
+//   const LocationAcessed(this.latitude, this.longitude);
+// }
+
+// class LocationDenied extends LocationState {
+//   final String? error;
+//  const  LocationDenied(this.error);
+// }
+
+class Location {
+  const Location({this.latitude = 0.0, this.longitude = 0.0});
+  final double latitude;
+  final double longitude;
+}
