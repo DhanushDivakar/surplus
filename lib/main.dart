@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:surplus/bloc/auth/bloc/authentication_bloc.dart';
+import 'package:surplus/bloc/auth/bloc/details_data_bloc.dart';
 import 'package:surplus/bloc/auth/bloc/register_bloc_bloc.dart';
 import 'package:surplus/bloc/auth/bloc/send_otp_bloc.dart';
+import 'package:surplus/bloc/auth/bloc/user_bloc.dart';
 import 'package:surplus/bloc/auth/bloc/verify_otp_bloc.dart';
 import 'package:surplus/cubit/bottom_bar_cubit.dart';
 import 'package:surplus/cubit/cubit/aadhar_image_picker.dart';
@@ -13,7 +15,6 @@ import 'package:surplus/cubit/cubit/auth_cubit.dart';
 import 'package:surplus/cubit/cubit/image_picker.dart';
 import 'package:surplus/cubit/cubit/location_cubit.dart';
 import 'package:surplus/repositories.dart/auth_repo.dart';
-import 'package:surplus/screens/auth_screen/signin.dart';
 import 'package:surplus/screens/auth_screen/signup.dart';
 import 'package:surplus/services/auth_service.dart';
 
@@ -35,12 +36,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<BottomBarCubit>(
-          create: (context) => BottomBarCubit(),
-        ),
         BlocProvider<LocationCubit>(
           lazy: false,
           create: (context) => LocationCubit(),
+        ),
+        BlocProvider<BottomBarCubit>(
+          create: (context) => BottomBarCubit(),
         ),
         BlocProvider<AuthenticationBloc>(
           create: (context) => AuthenticationBloc(),
@@ -53,6 +54,9 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
+        ),
+        BlocProvider(
+          create: (context) => UserBloc(),
         ),
         BlocProvider(
           create: (context) => VerifyOTPBloc(
@@ -71,6 +75,11 @@ class MyApp extends StatelessWidget {
                 dio: Dio(),
               ),
             ),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => DetailsDataBloc(
+            registerBlocBloc: BlocProvider.of<RegisterBlocBloc>(context),
           ),
         ),
         BlocProvider(
