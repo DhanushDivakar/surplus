@@ -168,7 +168,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                 setState(() {
                                                   _profileImage = file;
                                                 });
-                                                print(_profileImage);
+                                                print('profileimage : $_profileImage');
                                               }
                                               // final image = context
                                               //     .read<ImagePickerCubit>()
@@ -258,7 +258,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           TextFormField(
                             validator: (value) {
-                              if (value!.isEmpty || value.length > 10) {
+                              if (value!.isEmpty) {
                                 return 'Enter number';
                               } else {
                                 return null;
@@ -315,6 +315,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                               setState(() {
                                                 _aadharImage = file;
                                               });
+                                              print('aadharimage : $_aadharImage');
                                             }
                                           },
                                           child: const Text("Reset Image"),
@@ -351,6 +352,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                             .state
                                             .permission ==
                                         LocationPermission.whileInUse) {
+                                          
                                   context.read<DetailsDataBloc>().add(
                                         SubmitDetailsEvent(
                                           user: state.user.copyWith(

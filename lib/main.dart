@@ -15,6 +15,7 @@ import 'package:surplus/cubit/cubit/auth_cubit.dart';
 import 'package:surplus/cubit/cubit/image_picker.dart';
 import 'package:surplus/cubit/cubit/location_cubit.dart';
 import 'package:surplus/repositories.dart/auth_repo.dart';
+import 'package:surplus/screens/auth_screen/signin.dart';
 import 'package:surplus/screens/auth_screen/signup.dart';
 import 'package:surplus/services/auth_service.dart';
 
@@ -70,6 +71,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => RegisterBlocBloc(
+            userBloc: BlocProvider.of<UserBloc>(context),
             authRepository: AuthRepositoryImpl(
               authService: AuthService(
                 dio: Dio(),
@@ -104,7 +106,7 @@ class MyApp extends StatelessWidget {
 
             //primarySwatch: Color.fromRGBO(241, 90, 41, 1),
           ),
-          home: SignUpScreen()
+          home: SignInScreen()
           //  BlocBuilder<AuthCubit, AuthState>(
           //   buildWhen: (previous, current) {
           //     return previous is AuthInitialState;
