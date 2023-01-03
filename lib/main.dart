@@ -13,7 +13,6 @@ import 'package:surplus/cubit/cubit/image_picker.dart';
 import 'package:surplus/cubit/cubit/location_cubit.dart';
 import 'package:surplus/repositories.dart/auth_repo.dart';
 import 'package:surplus/screens/auth_screen/signin.dart';
-import 'package:surplus/screens/home_screen/home_screen.dart';
 import 'package:surplus/services/auth_service.dart';
 
 void main() async {
@@ -84,20 +83,21 @@ class MyApp extends StatelessWidget {
 
           //primarySwatch: Color.fromRGBO(241, 90, 41, 1),
         ),
-        home: BlocBuilder<AuthCubit, AuthState>(
-          buildWhen: (previous, current) {
-            return previous is AuthInitialState;
-          },
-          builder: (context, state) {
-            if (state is AuthLoggedInState) {
-              return const HomeScreen();
-            } else if (state is AuthLoggedOutState) {
-              return SignInScreen();
-            } else {
-              return SignInScreen();
-            }
-          },
-        ),
+        home: SignInScreen()
+        //  BlocBuilder<AuthCubit, AuthState>(
+        //   buildWhen: (previous, current) {
+        //     return previous is AuthInitialState;
+        //   },
+        //   builder: (context, state) {
+        //     if (state is AuthLoggedInState) {
+        //       return const HomeScreen();
+        //     } else if (state is AuthLoggedOutState) {
+        //       return SignInScreen();
+        //     } else {
+        //       return SignInScreen();
+        //     }
+        //   },
+        // ),
       ),
     );
   }
