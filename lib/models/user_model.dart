@@ -22,21 +22,21 @@ class User {
       this.long});
 
   factory User.fromJson(Map<String, dynamic> json) {
-    // var profilePic = File('${json['profilePic']}').existsSync()
-    //     ? File('${json['profilePic']}')
-    //     : null;
+    var profilePic = File('${json['profilePic']}').existsSync()
+        ? File('${json['profilePic']}')
+        : null;
 
-    // var aadhaarPic = File('${json['aadhaarPic']}').existsSync()
-    //     ? File('${json['aadhaarPic']}')
-    //     : null;
+    var aadhaarPic = File('${json['aadhaarPic']}').existsSync()
+        ? File('${json['aadhaarPic']}')
+        : null;
 
     return User(
       phone: json['phone'],
       name: json['name'],
       email: json['email'],
-      profilePic: json['profilePic'],
+      profilePic: profilePic,
       aadhaarNo: json['aadhaarNo'],
-      aadhaarPic: json['aadhaarPic'],
+      aadhaarPic: aadhaarPic,
       lat: json['lat'],
       long: json['long'],
     );
