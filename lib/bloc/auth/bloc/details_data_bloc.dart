@@ -26,7 +26,7 @@ class DetailsDataBloc extends Bloc<DetailsDataEvent, DetailsDataState> {
   @override
   Map<String, dynamic>? toJson(DetailsDataState state) => state.toJson();
 
- //this is details bloc
+ //this is  details bloc
 
   FutureOr<void> _onSubmitUserDEtails(
       SubmitDetailsEvent event, Emitter<DetailsDataState> emit) {
